@@ -3,7 +3,7 @@
 //   fetch()     — вебхук Telegram и /api/* для Mini App; статика отдаётся из public/.
 import {
   blocks, blocksFor, slotsFor, endingOn, dayIndex, courseDays, courseEndISO,
-  DOCTOR_VISIT, RECAP_TIME, STOP_TIME, TZ_OFFSET_MIN, START, iso, addDays,
+  DOCTOR_VISIT, RECAP_TIME, STOP_TIME, TZ_OFFSET_MIN, START, iso, addDays, pad,
 } from '../public/schedule.js';
 import { sendMessage, editMessage, answerCallback, tg, verifyInitData } from './telegram.js';
 import {
@@ -143,7 +143,13 @@ async function onUpdate(env, update) {
     return;
   }
   if (cmd === '/catchup') {
-    await catchUp(env, chat, today, 24 * 60, true);
+    const date = parseDateArg(msg.text.trim().split(/\s+/)[1], today);
+    if (!date) {
+      await sendMessage(env.BOT_TOKEN, chat,
+        `Не понял дату. Пиши <code>/catchup</code> — за сегодня, или <code>/catchup 08.09</code> — за конкретный день курса.`);
+      return;
+    }
+    await catchUp(env, chat, date, 24 * 60, true);
     return;
   }
   if (cmd === '/status') {
@@ -169,7 +175,22 @@ async function onUpdate(env, update) {
 }
 
 /**
- * Блоки сегодняшнего дня, время которых уже прошло, — с теми же кнопками.
+ * Дата из аргумента команды: «08.09», «08.09.2026» или «2026-09-08».
+ * Пустой аргумент — сегодня. Вне курса — null.
+ */
+function parseDateArg(arg, today) {
+  if (!arg) return today;
+  let date = null;
+  const dmy = arg.match(/^(\d{1,2})[.\-/](\d{1,2})(?:[.\-/](\d{4}))?$/);
+  if (dmy) date = `${dmy[3] || START.slice(0, 4)}-${pad(+dmy[2])}-${pad(+dmy[1])}`;
+  else if (/^\d{4}-\d{2}-\d{2}$/.test(arg)) date = arg;
+  if (!date) return null;
+  const i = dayIndex(date);
+  return i >= 0 && i < courseDays ? date : null;
+}
+
+/**
+ * Блоки дня, время которых уже прошло, — с теми же кнопками.
  * Нужно при первом запуске: курс мог начаться раньше бота.
  */
 async function catchUp(env, chat, date, nowMin, force = false) {
@@ -178,10 +199,10 @@ async function catchUp(env, chat, date, nowMin, force = false) {
   const taken = await takenSet(env.DB, chat, date);
   const pending = past.filter((b) => b.steps.some((s) => !taken.has(s.key)));
   if (!pending.length) {
-    if (force) await sendMessage(env.BOT_TOKEN, chat, 'За сегодня всё уже отмечено.');
+    if (force) await sendMessage(env.BOT_TOKEN, chat, `За ${date} всё уже отмечено.`);
     return;
   }
-  await sendMessage(env.BOT_TOKEN, chat, catchUpMessage(date, pending.length));
+  await sendMessage(env.BOT_TOKEN, chat, catchUpMessage(date, pending.length, force));
   for (const b of pending) {
     // Помечаем как отправленное, чтобы крон не прислал этот блок повторно.
     if (!force) await claim(env.DB, chat, date, `b:${b.id}`);

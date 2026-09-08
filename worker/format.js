@@ -129,9 +129,11 @@ export function statusMessage(dateISO, takenByDate) {
 }
 
 /** Заголовок к догоняющим блокам при первом запуске. */
-export function catchUpMessage(dateISO, n) {
+export function catchUpMessage(dateISO, n, onDemand = false) {
   return [
-    `⏪ <b>Курс уже идёт — отметь, что успел принять</b>`,
+    onDemand
+      ? `⏪ <b>${fmtDate(dateISO)} — отметить задним числом</b>`
+      : `⏪ <b>Курс уже идёт — отметь, что успел принять</b>`,
     '',
     `За ${fmtDate(dateISO)} ${n === 1 ? 'остался' : 'осталось'} ${n} ${plural(n, 'блок', 'блока', 'блоков')} без отметок.`,
     'Ниже придут они же с кнопками. Что не принимал — просто не трогай.',
@@ -149,7 +151,7 @@ export function startMessage() {
     '',
     '/status — сводка по курсу',
     '/today — план на день',
-    '/catchup — отметить задним числом за сегодня',
+    '/catchup — отметить задним числом (можно с датой: /catchup 08.09)',
     '/pause — выключить напоминания, /resume — включить',
     '',
     `<i>${esc(FOOD_BAN)}</i>`,

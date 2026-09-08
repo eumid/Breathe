@@ -202,5 +202,53 @@ console.log('12. Первый запуск посреди дня: бот пре�
   check(dupes.length === 0, 'крон не дублирует уже показанные блоки', `${dupes.length} лишних`);
 }
 
+console.log('13. /catchup с датой поднимает нужный день, а не сегодняшний');
+{
+  const worker = await import('../worker/index.js');
+  const CHAT3 = 999;
+  const send = (text, when) => withClock(when, () => worker.default.fetch(new Request('https://x/tg/s', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'X-Telegram-Bot-Api-Secret-Token': 's' },
+    body: JSON.stringify({ message: { text, chat: { id: CHAT3 } } }),
+  }), env));
+
+  // Регистрация уже в ночь на 9 сентября: 8-е закрыто, catchup без даты ничего не поднимет.
+  await send('/start', utcAt('2026-09-09', '00:48'));
+
+  let before = sentMessages.length;
+  await send('/catchup 08.09', utcAt('2026-09-09', '00:48'));
+  let fresh = sentMessages.slice(before);
+  check(fresh.some((m) => m.text.includes('8 сентября — отметить задним числом')), 'заголовок называет 8 сентября');
+  const blocks8 = blocksFor('2026-09-08');
+  check(fresh.filter((m) => m.reply_markup).length === blocks8.length,
+    'подняты все блоки 8 сентября', `${fresh.filter((m) => m.reply_markup).length}/${blocks8.length}`);
+
+  // Отмечаем вечер и ночь — единственный реальный приём того дня.
+  const cb = (blockId, medId) => worker.default.fetch(new Request('https://x/tg/s', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'X-Telegram-Bot-Api-Secret-Token': 's' },
+    body: JSON.stringify({ callback_query: { id: '2', data: `m|2026-09-08|${blockId}|${medId}`,
+      message: { message_id: fresh.find((m) => m.text.includes(blocksFor('2026-09-08').find((b) => b.id === blockId).title + ',')).message_id,
+        chat: { id: CHAT3 } } } }),
+  }), env);
+  await cb('pm', '*');
+  await cb('night', '*');
+  const marks = sqlite.prepare('SELECT slot FROM marks WHERE chat_id=? AND date=?').all(CHAT3, '2026-09-08');
+  check(marks.length === 6, 'записано ровно шесть препаратов за вечер 8 сентября', `${marks.length}`);
+  const medsMarked = new Set(marks.map((m) => m.slot.split(':')[1]));
+  check(medsMarked.size === 6, 'все шесть препаратов различны', [...medsMarked].join(','));
+
+  // Повторный вызов сообщает, что закрытые блоки уже отмечены.
+  before = sentMessages.length;
+  await send('/catchup 08.09', utcAt('2026-09-09', '00:48'));
+  fresh = sentMessages.slice(before);
+  check(fresh.every((m) => !m.text.includes('Вечер, 20:00')), 'закрытый блок повторно не поднимается');
+
+  // Дата вне курса отклоняется.
+  before = sentMessages.length;
+  await send('/catchup 01.01', utcAt('2026-09-09', '00:48'));
+  check(sentMessages.slice(before).some((m) => m.text.includes('Не понял дату')), 'дата вне курса отклонена');
+}
+
 console.log(failures ? `\n❌ Провалено проверок: ${failures}` : '\n✅ Все проверки пройдены');
 process.exit(failures ? 1 : 0);
