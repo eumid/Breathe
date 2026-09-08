@@ -1,0 +1,16 @@
+{
+  "name": "breathe",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ics": "node tools/gen-ics.mjs",
+    "icon": "node tools/gen-icon.mjs",
+    "test": "node tools/test.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute breathe --remote --file=schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

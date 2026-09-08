@@ -1,0 +1,23 @@
+name = "breathe"
+main = "worker/index.js"
+compatibility_date = "2026-01-01"
+
+# Mini App и PWA раздаются статикой; всё, что не найдено, уходит в Worker.
+assets = { directory = "./public", binding = "ASSETS" }
+
+# Проверка расписания раз в минуту: 1440 запусков в сутки, укладывается в бесплатный тариф.
+[triggers]
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "breathe"
+database_id = "ЗАПОЛНИТЬ_ПОСЛЕ_wrangler_d1_create"
+
+[vars]
+# URL Mini App — тот же воркер. Проставить после первого деплоя.
+MINI_APP_URL = ""
+
+# Секреты (не сюда, а через wrangler secret put):
+#   BOT_TOKEN       — токен от @BotFather
+#   WEBHOOK_SECRET  — любая длинная случайная строка, ею же защищён путь вебхука

@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Breathe — приём лекарств</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Breathe">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-180.png">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#f4f6f6; --card:#fff; --ink:#111c1a; --muted:#5d6b69; --line:#e2e7e6;
+  --accent:#0f766e; --accent-soft:#e6f2f0; --warn:#b45309; --warn-soft:#fdf3e3;
+  --stop:#b91c1c; --stop-soft:#fdeceb; --radius:14px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e1413; --card:#161e1d; --ink:#e8efee; --muted:#93a3a1; --line:#26312f;
+  --accent:#4ade9f; --accent-soft:#16302a; --warn:#fbbf24; --warn-soft:#2e2410;
+  --stop:#f87171; --stop-soft:#2e1616;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1413; --card:#161e1d; --ink:#e8efee; --muted:#93a3a1; --line:#26312f;
+  --accent:#4ade9f; --accent-soft:#16302a; --warn:#fbbf24; --warn-soft:#2e2410;
+  --stop:#f87171; --stop-soft:#2e1616;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
+.wrap{max-width:640px;margin:0 auto;padding:12px 16px 48px}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  margin:26px 0 10px;font-weight:600}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px 0 4px;position:sticky;top:0;background:var(--bg);z-index:5}
+.day-nav{display:flex;align-items:center;gap:6px}
+.nav-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);font-size:16px;line-height:1;display:grid;place-items:center}
+.nav-btn:disabled{opacity:.3}
+.date-line{font-size:13px;color:var(--muted);margin-top:2px}
+.today-btn{font-size:13px;color:var(--accent);padding:6px 10px;border-radius:9px;background:var(--accent-soft)}
+
+.banner{border-radius:var(--radius);padding:12px 14px;margin:10px 0;font-size:14px;line-height:1.4}
+.banner b{display:block;margin-bottom:2px}
+.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner.stop{background:var(--stop-soft);color:var(--stop)}
+.banner.info{background:var(--accent-soft);color:var(--accent)}
+
+.bhead{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);
+  font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--muted);text-transform:uppercase}
+.bhead .t{font-variant-numeric:tabular-nums;color:var(--ink);font-size:14px}
+.bhead .count{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:600}
+.card.closed .bhead{color:var(--accent)}
+.card.next{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+
+ul{list-style:none;margin:0;padding:0}
+.step{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step .idx{font-size:14px;color:var(--muted);padding-top:2px;min-width:16px}
+.step .body{flex:1;min-width:0}
+.step .name{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.step .sub{font-size:13px;color:var(--muted);margin-top:2px}
+.step.done .name{text-decoration:line-through}
+.step.done .name,.step.done .sub,.step.done .idx{opacity:.45}
+.tick{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);
+  background:var(--card);display:grid;place-items:center;transition:.12s;margin-top:1px}
+.tick svg{width:15px;height:15px;stroke:var(--card);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.step.done .tick{background:var(--accent);border-color:var(--accent)}
+.step.done .tick svg{opacity:1}
+
+.med{padding:12px 14px;border-top:1px solid var(--line)}
+.med:first-child{border-top:0}
+.med-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.med-name{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.chip{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+  padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.chip.fin{background:var(--line);color:var(--muted)}
+.chip.last{background:var(--stop-soft);color:var(--stop)}
+.med-meta{font-size:13px;color:var(--muted);margin-top:3px}
+.bar{height:5px;border-radius:3px;background:var(--line);margin-top:9px;overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.med.finished .med-name{opacity:.5}
+.med.finished .bar > i{background:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin-top:7px;padding-left:10px;border-left:2px solid var(--line)}
+.note.warn{color:var(--warn);border-color:var(--warn)}
+
+.strip{display:flex;gap:4px;padding:14px}
+.strip div{flex:1;height:34px;border-radius:5px;background:var(--line);position:relative}
+.strip div > i{position:absolute;inset:auto 0 0 0;background:var(--accent);border-radius:5px}
+.strip div.future{opacity:.35}
+.legend{font-size:12px;color:var(--muted);padding:0 14px 12px}
+
+.visit{display:flex;align-items:center;gap:14px;padding:14px}
+.visit .big{font-size:32px;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--accent)}
+.visit .s{font-size:13px;color:var(--muted);margin-top:2px}
+
+#sync{font-size:12px;color:var(--muted);padding:8px 2px;min-height:20px}
+footer{margin-top:24px;font-size:12px;color:var(--muted);line-height:1.5}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="h-day">—</h1>
+      <div class="date-line" id="h-date">—</div>
+    </div>
+    <div class="day-nav">
+      <button class="nav-btn" id="prev" aria-label="Предыдущий день">‹</button>
+      <button class="today-btn" id="today">Сегодня</button>
+      <button class="nav-btn" id="next" aria-label="Следующий день">›</button>
+    </div>
+  </header>
+
+  <div id="banners"></div>
+  <h2>План на день</h2>
+  <div id="blocks"></div>
+
+  <h2>Препараты</h2>
+  <div class="card" id="meds"></div>
+
+  <h2>Соблюдение, 14 дней</h2>
+  <div class="card">
+    <div class="strip" id="strip"></div>
+    <div class="legend" id="strip-legend"></div>
+  </div>
+
+  <h2>Контроль</h2>
+  <div class="card">
+    <div class="visit">
+      <div class="big" id="visit-num">—</div>
+      <div><div id="visit-t">—</div><div class="s" id="visit-s">—</div></div>
+    </div>
+  </div>
+
+  <div id="sync"></div>
+  <footer>
+    <p id="food"></p>
+    <p id="foot-note"></p>
+  </footer>
+</div>
+
+<script type="module">
+import { meds, medList, blocksFor, slotsFor, dayIndex, isActive, endISO, perDay, timesOf,
+         courseDays, courseEndISO, iso, parseISO, addDays, endingOn,
+         START, DOCTOR_VISIT, DOCTOR_NAME, FOOD_BAN } from './schedule.js';
+
+const TG = window.Telegram?.WebApp;
+const inTelegram = Boolean(TG?.initData);
+
+// ——— хранилище: D1 через бота внутри Telegram, localStorage в браузере ———
+function localStore() {
+  const KEY = 'breathe.log.v2';
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  let data = read();
+  return {
+    label: 'Отметки хранятся на этом устройстве.',
+    async load() { data = read(); },
+    get: (date) => new Set(data[date] || []),
+    async set(date, key, on) {
+      const s = new Set(data[date] || []);
+      on ? s.add(key) : s.delete(key);
+      s.size ? (data[date] = [...s]) : delete data[date];
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
+    },
+  };
+}
+
+function remoteStore(initData) {
+  let data = {};
+  const req = (path, opts = {}) => fetch(path, {
+    ...opts, headers: { 'X-Init-Data': initData, 'content-type': 'application/json', ...opts.headers },
+  });
+  return {
+    label: 'Отметки синхронизированы с ботом.',
+    async load() {
+      const r = await req(`/api/marks?from=${START}&to=${courseEndISO()}`);
+      if (!r.ok) throw new Error(r.status === 401 ? 'Не удалось подтвердить вход' : `Ошибка ${r.status}`);
+      data = (await r.json()).marks || {};
+    },
+    get: (date) => new Set(data[date] || []),
+    async set(date, key, on) {
+      const s = new Set(data[date] || []);
+      on ? s.add(key) : s.delete(key);
+      data[date] = [...s];
+      const r = await req('/api/mark', { method: 'POST', body: JSON.stringify({ date, key, on }) });
+      if (!r.ok) throw new Error('Не сохранилось — проверь связь');
+    },
+  };
+}
+
+const store = inTelegram ? remoteStore(TG.initData) : localStore();
+
+const RU_M = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const RU_W = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+const fmt = (s) => { const d = parseISO(s); return `${d.getDate()} ${RU_M[d.getMonth()]}`; };
+const fmtFull = (s) => `${fmt(s)}, ${RU_W[parseISO(s).getDay()]}`;
+const plural = (n,a,b,c) => { const m=n%100,k=n%10; return m>10&&m<20?c:k===1?a:k>=2&&k<=4?b:c; };
+const todayISO = () => iso(new Date());
+const NUM = ['①','②','③','④','⑤'];
+const TICK = '<svg viewBox="0 0 20 20"><polyline points="4,10.5 8,14.5 16,5.5"/></svg>';
+
+let view = todayISO();
+const setSync = (t) => { document.getElementById('sync').textContent = t; };
+
+async function toggle(date, key, on) {
+  try { await store.set(date, key, on); setSync(''); }
+  catch (e) { setSync(e.message); }
+  render();
+}
+
+function render() {
+  const taken = store.get(view);
+  const i = dayIndex(view);
+  const isToday = view === todayISO();
+
+  document.getElementById('h-day').textContent =
+    i < 0 ? 'До начала курса' : i >= courseDays ? 'Курс завершён' : `День ${i + 1}`;
+  document.getElementById('h-date').textContent = fmtFull(view) + (isToday ? ' · сегодня' : '');
+  document.getElementById('prev').disabled = i <= 0;
+  document.getElementById('next').disabled = i >= courseDays - 1;
+  document.getElementById('today').hidden = isToday;
+  document.getElementById('food').textContent = FOOD_BAN;
+  document.getElementById('foot-note').textContent = store.label
+    + ' Приложение не заменяет назначение врача.';
+
+  // баннеры
+  const b = [];
+  for (const m of endingOn(view)) b.push({
+    cls: m.id === 'rinoxil' ? 'stop' : 'info',
+    t: `Сегодня последний день: ${m.name}`,
+    s: m.id === 'rinoxil'
+      ? 'Завтра Риноксил отменить полностью. Утро и вечер начинаются сразу с носового душа.'
+      : `Курс ${m.days} ${plural(m.days,'день','дня','дней')} закончен — завтра не принимать.`,
+  });
+  const rin = meds.rinoxil;
+  if (isActive(rin, view) && i === rin.days - 2)
+    b.push({ cls:'warn', t:'Риноксил: остался 1 день',
+      s:'Максимум 5 дней. Дольше — медикаментозный ринит, отвыкать тяжело.' });
+  if (i === rin.days)
+    b.push({ cls:'info', t:'Риноксил отменён', s:'Цепочка теперь: носовой душ → гормональный спрей.' });
+  const toVisit = dayIndex(DOCTOR_VISIT) - i;
+  if (toVisit === 0) b.push({ cls:'warn', t:'Сегодня к врачу', s:DOCTOR_NAME });
+  else if (toVisit === 1) b.push({ cls:'warn', t:'Завтра к врачу', s:DOCTOR_NAME });
+  document.getElementById('banners').innerHTML =
+    b.map((x) => `<div class="banner ${x.cls}"><b>${x.t}</b>${x.s}</div>`).join('');
+
+  // блоки
+  const now = new Date().toTimeString().slice(0, 5);
+  const bs = blocksFor(view);
+  const nextBlock = isToday
+    ? bs.find((x) => x.steps.some((s) => !taken.has(s.key)) && x.time >= now)?.id
+    : null;
+
+  document.getElementById('blocks').innerHTML = bs.length ? bs.map((blk) => {
+    const left = blk.steps.filter((s) => !taken.has(s.key)).length;
+    return `<div class="card ${left ? '' : 'closed'} ${blk.id === nextBlock ? 'next' : ''}">
+      <div class="bhead"><span class="t">${blk.time}</span><span>${blk.icon} ${blk.title}</span>
+        <span class="count">${left ? `осталось ${left}` : 'закрыт ✓'}</span></div>
+      <ul>${blk.steps.map((s, n) => `
+        <li class="step ${taken.has(s.key) ? 'done' : ''}" data-key="${s.key}">
+          <span class="idx">${NUM[n]}</span>
+          <span class="body">
+            <span class="name">${s.med.name}</span>
+            <span class="sub">${[s.when, s.med.dose].filter(Boolean).join(' — ')}</span>
+          </span>
+          <button class="tick" aria-label="Отметить">${TICK}</button>
+        </li>`).join('')}</ul></div>`;
+  }).join('') : '<div class="card"><div class="step"><span class="body"><span class="sub">На этот день приёмов нет.</span></span></div></div>';
+
+  // препараты
+  document.getElementById('meds').innerHTML = medList.map((m) => {
+    const finished = i >= m.days;
+    const active = isActive(m, view);
+    const target = perDay(m.id);
+    const got = [...taken].filter((k) => k.endsWith(`:${m.id}`)).length;
+    const chip = finished ? '<span class="chip fin">Завершён</span>'
+      : !active ? ''
+      : i === m.days - 1 ? '<span class="chip last">Последний день</span>'
+      : `<span class="chip">${got}/${target} сегодня</span>`;
+    const meta = finished
+      ? `Курс ${m.days} ${plural(m.days,'день','дня','дней')} закончен ${fmt(endISO(m))}`
+      : active ? `День ${i + 1} из ${m.days} · до ${fmt(endISO(m))} · ${timesOf(m.id).join(', ')}`
+      : `Начало ${fmt(START)}`;
+    return `<div class="med ${finished ? 'finished' : ''}">
+      <div class="med-top"><span class="med-name">${m.n}. ${m.name}</span>${chip}</div>
+      <div class="med-meta">${meta}</div>
+      <div class="bar"><i style="width:${finished ? 100 : Math.max(0, Math.min(100, ((i+1)/m.days)*100))}%"></i></div>
+      ${m.hint && !finished ? `<div class="note">${m.hint}</div>` : ''}
+      ${m.warn && !finished ? `<div class="note warn">${m.warn}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  // полоска соблюдения
+  const cells = []; let sum = 0, counted = 0;
+  for (let k = 13; k >= 0; k--) {
+    const ds = addDays(view, -k), di = dayIndex(ds);
+    const total = slotsFor(ds).length;
+    const got = total ? [...store.get(ds)].length : 0;
+    const ratio = total ? Math.min(1, got / total) : 0;
+    const future = di > dayIndex(todayISO()) || di < 0;
+    if (!future && total) { sum += ratio; counted++; }
+    cells.push(`<div class="${future ? 'future' : ''}" title="${fmt(ds)}: ${got}/${total}"><i style="height:${Math.round(ratio*100)}%"></i></div>`);
+  }
+  document.getElementById('strip').innerHTML = cells.join('');
+  document.getElementById('strip-legend').textContent = counted
+    ? `Средний охват за период: ${Math.round(sum / counted * 100)}%` : 'Пока нет отметок.';
+
+  // визит
+  const dv = dayIndex(DOCTOR_VISIT) - dayIndex(todayISO());
+  document.getElementById('visit-num').textContent = dv > 0 ? dv : dv === 0 ? '!' : '✓';
+  document.getElementById('visit-t').textContent = dv > 0
+    ? `${plural(dv,'день','дня','дней')} до приёма` : dv === 0 ? 'Приём сегодня' : 'Приём прошёл';
+  document.getElementById('visit-s').textContent = `${fmtFull(DOCTOR_VISIT)} · ${DOCTOR_NAME}`;
+}
+
+document.getElementById('blocks').addEventListener('click', (e) => {
+  const li = e.target.closest('.step[data-key]');
+  if (!li) return;
+  TG?.HapticFeedback?.impactOccurred?.('light');
+  toggle(view, li.dataset.key, !store.get(view).has(li.dataset.key));
+});
+const shift = (n) => { view = addDays(view, n); render(); };
+document.getElementById('prev').onclick = () => shift(-1);
+document.getElementById('next').onclick = () => shift(1);
+document.getElementById('today').onclick = () => { view = todayISO(); render(); };
+
+if (TG) {
+  TG.ready(); TG.expand();
+  document.documentElement.dataset.theme = TG.colorScheme === 'dark' ? 'dark' : 'light';
+  TG.onEvent?.('themeChanged', () => {
+    document.documentElement.dataset.theme = TG.colorScheme === 'dark' ? 'dark' : 'light';
+  });
+}
+
+async function boot() {
+  try { await store.load(); } catch (e) { setSync(e.message); }
+  render();
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) boot(); });
+setInterval(render, 60000);
+boot();
+
+if (!inTelegram && 'serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

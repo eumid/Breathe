@@ -15,56 +15,362 @@ TZNAME:+05
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:breathe-rinoxil-0800-1@breathe.local
+UID:breathe-am-20260908@breathe.local
 DTSTAMP:20260908T000000Z
 DTSTART;TZID=Asia/Tashkent:20260908T080000
-DTEND;TZID=Asia/Tashkent:20260908T081000
+DTEND;TZID=Asia/Tashkent:20260908T081500
 RRULE:FREQ=DAILY;COUNT=5
-SUMMARY:Риноксил 0\,05% — по 2 дозы в каждую ноз
- дрю
-DESCRIPTION:спрей\, по 2 дозы в каждую ноздрю.\nК
- урс 5 дн.\, по 2026-09-12 включительно.\nПервый 
- шаг цепочки. Через 5 минут — носовой душ.\
- nВнимание: Сосудосуживающий. Строго не д
- ольше 5 дней — дальше начинается медикам
- ентозный ринит (нос перестаёт дышать без
-  капель).\nОстрое\, сладкое\, солёное\, цитр
- усовое — нельзя.
+SUMMARY:🌅 Утро: Риноксил → Душ → Спрей → Си
+ нупрет
+DESCRIPTION:Порядок обязателен:\n1. Риноксил 0\,05
+ % — по 2 дозы в каждую ноздрю\n2. Носовой ду
+ ш (через 5 минут) — промывание носа\n3. Ава
+ мис / Флутинекс / Флутел / Фронза (сразу по
+ сле душа) — по 2 дозы\n4. Синупрет экстракт
+  — 1 таблетка\n\nОстрое\, сладкое\, солёное\
+ , цитрусовое — нельзя.
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Риноксил 0\,05% — по 2 дозы в каждую н
- оздрю
+DESCRIPTION:🌅 Утро: Риноксил → Душ → Спрей → 
+ Синупрет
 TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-rinoxil-2000-2@breathe.local
+UID:breathe-am2-20260908@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T200000
-DTEND;TZID=Asia/Tashkent:20260908T201000
+DTSTART;TZID=Asia/Tashkent:20260908T100000
+DTEND;TZID=Asia/Tashkent:20260908T101500
 RRULE:FREQ=DAILY;COUNT=5
-SUMMARY:Риноксил 0\,05% — по 2 дозы в каждую ноз
- дрю
-DESCRIPTION:спрей\, по 2 дозы в каждую ноздрю.\nК
- урс 5 дн.\, по 2026-09-12 включительно.\nПервый 
- шаг цепочки. Через 5 минут — носовой душ.\
- nВнимание: Сосудосуживающий. Строго не д
- ольше 5 дней — дальше начинается медикам
- ентозный ринит (нос перестаёт дышать без
-  капель).\nОстрое\, сладкое\, солёное\, цитр
- усовое — нельзя.
+SUMMARY:🧴 Мазь: Мазь
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n\nОстрое\, сладкое\, с
+ олёное\, цитрусовое — нельзя.
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Риноксил 0\,05% — по 2 дозы в каждую н
- оздрю
+DESCRIPTION:🧴 Мазь: Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-day-20260908@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T133000
+DTEND;TZID=Asia/Tashkent:20260908T134500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🕐 День: Душ → Синупрет
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n2. Синупрет экстракт 
+ — 1 таблетка\n\nОстрое\, сладкое\, солёное\,
+  цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕐 День: Душ → Синупрет
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-aft-20260908@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T160000
+DTEND;TZID=Asia/Tashkent:20260908T161500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🕓 Полдник: Душ → Мазь
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n2. Метилурацил (после 
+ душа) — на каждую ноздрю\n\nОстрое\, сладк
+ ое\, солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕓 Полдник: Душ → Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-pm-20260908@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T200000
+DTEND;TZID=Asia/Tashkent:20260908T201500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🌆 Вечер: Риноксил → Душ → Спрей → С
+ инупрет
+DESCRIPTION:Порядок обязателен:\n1. Риноксил 0\,05
+ % — по 2 дозы в каждую ноздрю\n2. Носовой ду
+ ш (через 5 минут) — промывание носа\n3. Ава
+ мис / Флутинекс / Флутел / Фронза (сразу по
+ сле душа) — по 2 дозы\n4. Синупрет экстракт
+  — 1 таблетка\n\nОстрое\, сладкое\, солёное\
+ , цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌆 Вечер: Риноксил → Душ → Спрей →
+  Синупрет
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-night-20260908@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T220000
+DTEND;TZID=Asia/Tashkent:20260908T221500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🌙 Ночь: Мазь → Монтус
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n2. Л-Монтус / Аллервей
+  М — 1 таблетка\n\nОстрое\, сладкое\, солёно
+ е\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌙 Ночь: Мазь → Монтус
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-am-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T080000
+DTEND;TZID=Asia/Tashkent:20260913T081500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🌅 Утро: Душ → Спрей → Синупрет
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ (через 5 минут) — промывание носа\n2. Авами
+ с / Флутинекс / Флутел / Фронза (сразу посл
+ е душа) — по 2 дозы\n3. Синупрет экстракт —
+  1 таблетка\n\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌅 Утро: Душ → Спрей → Синупрет
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-am2-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T100000
+DTEND;TZID=Asia/Tashkent:20260913T101500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🧴 Мазь: Мазь
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n\nОстрое\, сладкое\, с
+ олёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🧴 Мазь: Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-day-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T133000
+DTEND;TZID=Asia/Tashkent:20260913T134500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🕐 День: Душ → Синупрет
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n2. Синупрет экстракт 
+ — 1 таблетка\n\nОстрое\, сладкое\, солёное\,
+  цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕐 День: Душ → Синупрет
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-aft-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T160000
+DTEND;TZID=Asia/Tashkent:20260913T161500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🕓 Полдник: Душ → Мазь
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n2. Метилурацил (после 
+ душа) — на каждую ноздрю\n\nОстрое\, сладк
+ ое\, солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕓 Полдник: Душ → Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-pm-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T200000
+DTEND;TZID=Asia/Tashkent:20260913T201500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🌆 Вечер: Душ → Спрей → Синупрет
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ (через 5 минут) — промывание носа\n2. Авами
+ с / Флутинекс / Флутел / Фронза (сразу посл
+ е душа) — по 2 дозы\n3. Синупрет экстракт —
+  1 таблетка\n\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌆 Вечер: Душ → Спрей → Синупрет
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-night-20260913@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260913T220000
+DTEND;TZID=Asia/Tashkent:20260913T221500
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:🌙 Ночь: Мазь → Монтус
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n2. Л-Монтус / Аллервей
+  М — 1 таблетка\n\nОстрое\, сладкое\, солёно
+ е\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌙 Ночь: Мазь → Монтус
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-am-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T080000
+DTEND;TZID=Asia/Tashkent:20260918T081500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🌅 Утро: Душ → Спрей
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ (через 5 минут) — промывание носа\n2. Авами
+ с / Флутинекс / Флутел / Фронза (сразу посл
+ е душа) — по 2 дозы\n\nОстрое\, сладкое\, сол
+ ёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌅 Утро: Душ → Спрей
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-am2-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T100000
+DTEND;TZID=Asia/Tashkent:20260918T101500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🧴 Мазь: Мазь
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n\nОстрое\, сладкое\, с
+ олёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🧴 Мазь: Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-day-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T133000
+DTEND;TZID=Asia/Tashkent:20260918T134500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🕐 День: Душ
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n\nОстрое\, сладкое\, со
+ лёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕐 День: Душ
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-aft-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T160000
+DTEND;TZID=Asia/Tashkent:20260918T161500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🕓 Полдник: Душ → Мазь
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ — промывание носа\n2. Метилурацил (после 
+ душа) — на каждую ноздрю\n\nОстрое\, сладк
+ ое\, солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🕓 Полдник: Душ → Мазь
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-pm-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T200000
+DTEND;TZID=Asia/Tashkent:20260918T201500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🌆 Вечер: Душ → Спрей
+DESCRIPTION:Порядок обязателен:\n1. Носовой душ 
+ (через 5 минут) — промывание носа\n2. Авами
+ с / Флутинекс / Флутел / Фронза (сразу посл
+ е душа) — по 2 дозы\n\nОстрое\, сладкое\, сол
+ ёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌆 Вечер: Душ → Спрей
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-night-20260918@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260918T220000
+DTEND;TZID=Asia/Tashkent:20260918T221500
+RRULE:FREQ=DAILY;COUNT=4
+SUMMARY:🌙 Ночь: Мазь → Монтус
+DESCRIPTION:Порядок обязателен:\n1. Метилурацил
+  — на каждую ноздрю\n2. Л-Монтус / Аллервей
+  М — 1 таблетка\n\nОстрое\, сладкое\, солёно
+ е\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌙 Ночь: Мазь → Монтус
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-am-20260922@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260922T080000
+DTEND;TZID=Asia/Tashkent:20260922T081500
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:🌅 Утро: Спрей
+DESCRIPTION:Порядок обязателен:\n1. Авамис / Флу
+ тинекс / Флутел / Фронза (сразу после душа
+ ) — по 2 дозы\n\nОстрое\, сладкое\, солёное\, 
+ цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌅 Утро: Спрей
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-pm-20260922@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260922T200000
+DTEND;TZID=Asia/Tashkent:20260922T201500
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:🌆 Вечер: Спрей
+DESCRIPTION:Порядок обязателен:\n1. Авамис / Флу
+ тинекс / Флутел / Фронза (сразу после душа
+ ) — по 2 дозы\n\nОстрое\, сладкое\, солёное\, 
+ цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🌆 Вечер: Спрей
 TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:breathe-stop-rinoxil@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260912T214000
-DTEND;TZID=Asia/Tashkent:20260912T214500
+DTSTART;TZID=Asia/Tashkent:20260912T213000
+DTEND;TZID=Asia/Tashkent:20260912T213500
 SUMMARY:Завтра НЕ принимать: Риноксил 0\,05%
 DESCRIPTION:Курс 5 дн. закончен сегодня (2026-09-12). 
  Приём прекратить.\nСосудосуживающий. Стр
@@ -78,90 +384,10 @@ TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-rinse-0805-3@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T080500
-DTEND;TZID=Asia/Tashkent:20260908T081500
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Носовой душ — промывание носа
-DESCRIPTION:Аквалор софт или Аквамарис норм\, п
- ромывание носа.\nНазначено 3–4 раза в ден
- ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
- ез 5 минут после Риноксила (пока он дейст
- вует — промывается лучше). Назначено 3–4 
- раза в день.\nОстрое\, сладкое\, солёное\, ц
- итрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Носовой душ — промывание носа
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-rinse-1300-4@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T130000
-DTEND;TZID=Asia/Tashkent:20260908T131000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Носовой душ — промывание носа
-DESCRIPTION:Аквалор софт или Аквамарис норм\, п
- ромывание носа.\nНазначено 3–4 раза в ден
- ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
- ез 5 минут после Риноксила (пока он дейст
- вует — промывается лучше). Назначено 3–4 
- раза в день.\nОстрое\, сладкое\, солёное\, ц
- итрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Носовой душ — промывание носа
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-rinse-1700-5@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T170000
-DTEND;TZID=Asia/Tashkent:20260908T171000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Носовой душ — промывание носа
-DESCRIPTION:Аквалор софт или Аквамарис норм\, п
- ромывание носа.\nНазначено 3–4 раза в ден
- ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
- ез 5 минут после Риноксила (пока он дейст
- вует — промывается лучше). Назначено 3–4 
- раза в день.\nОстрое\, сладкое\, солёное\, ц
- итрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Носовой душ — промывание носа
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-rinse-2005-6@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T200500
-DTEND;TZID=Asia/Tashkent:20260908T201500
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Носовой душ — промывание носа
-DESCRIPTION:Аквалор софт или Аквамарис норм\, п
- ромывание носа.\nНазначено 3–4 раза в ден
- ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
- ез 5 минут после Риноксила (пока он дейст
- вует — промывается лучше). Назначено 3–4 
- раза в день.\nОстрое\, сладкое\, солёное\, ц
- итрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Носовой душ — промывание носа
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:breathe-stop-rinse@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260921T214100
-DTEND;TZID=Asia/Tashkent:20260921T214600
+DTSTART;TZID=Asia/Tashkent:20260921T213100
+DTEND;TZID=Asia/Tashkent:20260921T213600
 SUMMARY:Завтра НЕ принимать: Носовой душ
 DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
   Приём прекратить.
@@ -172,56 +398,10 @@ TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-steroid-0810-7@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T081000
-DTEND;TZID=Asia/Tashkent:20260908T082000
-RRULE:FREQ=DAILY;COUNT=28
-SUMMARY:Авамис / Флутинекс / Флутел / Фронза —
-  по 2 дозы
-DESCRIPTION:спрей\, по 2 дозы.\nКурс 28 дн.\, по 2026-10
- -05 включительно.\nСразу после носового ду
- ша. Любой один препарат из четырёх — они 
- взаимозаменяемы.\nВнимание: Работает нак
- опительно: заметный эффект к 5–7 дню\, но 
- курс 28 дней. Бросить\, когда «стало легче
- »\, — вернуть всё назад.\nОстрое\, сладкое\
- , солёное\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Авамис / Флутинекс / Флутел / Фронза
-  — по 2 дозы
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-steroid-2010-8@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T201000
-DTEND;TZID=Asia/Tashkent:20260908T202000
-RRULE:FREQ=DAILY;COUNT=28
-SUMMARY:Авамис / Флутинекс / Флутел / Фронза —
-  по 2 дозы
-DESCRIPTION:спрей\, по 2 дозы.\nКурс 28 дн.\, по 2026-10
- -05 включительно.\nСразу после носового ду
- ша. Любой один препарат из четырёх — они 
- взаимозаменяемы.\nВнимание: Работает нак
- опительно: заметный эффект к 5–7 дню\, но 
- курс 28 дней. Бросить\, когда «стало легче
- »\, — вернуть всё назад.\nОстрое\, сладкое\
- , солёное\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Авамис / Флутинекс / Флутел / Фронза
-  — по 2 дозы
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:breathe-stop-steroid@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20261005T214200
-DTEND;TZID=Asia/Tashkent:20261005T214700
+DTSTART;TZID=Asia/Tashkent:20261005T213200
+DTEND;TZID=Asia/Tashkent:20261005T213700
 SUMMARY:Завтра НЕ принимать: Авамис / Флутине
  кс / Флутел / Фронза
 DESCRIPTION:Курс 28 дн. закончен сегодня (2026-10-05).
@@ -237,27 +417,10 @@ TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-montelukast-2230-9@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T223000
-DTEND;TZID=Asia/Tashkent:20260908T224000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Л-Монтус / Аллервей М — 1 таблетка
-DESCRIPTION:таблетка\, 1 таблетка.\nКурс 14 дн.\, п
- о 2026-09-21 включительно.\nПеред сном.\nОстро
- е\, сладкое\, солёное\, цитрусовое — нельз
- я.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Л-Монтус / Аллервей М — 1 таблетка
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:breathe-stop-montelukast@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260921T214300
-DTEND;TZID=Asia/Tashkent:20260921T214800
+DTSTART;TZID=Asia/Tashkent:20260921T213300
+DTEND;TZID=Asia/Tashkent:20260921T213800
 SUMMARY:Завтра НЕ принимать: Л-Монтус / Аллер
  вей М
 DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
@@ -270,64 +433,10 @@ TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-methyluracil-0930-10@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T093000
-DTEND;TZID=Asia/Tashkent:20260908T094000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Метилурацил — на каждую ноздрю
-DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
-  по 2026-09-21 включительно.\nЗаживляет слизи
- стую. Ставить между приёмами спрея\, не с
- разу после него.\nОстрое\, сладкое\, солён
- ое\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Метилурацил — на каждую ноздрю
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-methyluracil-1500-11@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T150000
-DTEND;TZID=Asia/Tashkent:20260908T151000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Метилурацил — на каждую ноздрю
-DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
-  по 2026-09-21 включительно.\nЗаживляет слизи
- стую. Ставить между приёмами спрея\, не с
- разу после него.\nОстрое\, сладкое\, солён
- ое\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Метилурацил — на каждую ноздрю
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-methyluracil-2200-12@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T220000
-DTEND;TZID=Asia/Tashkent:20260908T221000
-RRULE:FREQ=DAILY;COUNT=14
-SUMMARY:Метилурацил — на каждую ноздрю
-DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
-  по 2026-09-21 включительно.\nЗаживляет слизи
- стую. Ставить между приёмами спрея\, не с
- разу после него.\nОстрое\, сладкое\, солён
- ое\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Метилурацил — на каждую ноздрю
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:breathe-stop-methyluracil@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260921T214400
-DTEND;TZID=Asia/Tashkent:20260921T214900
+DTSTART;TZID=Asia/Tashkent:20260921T213400
+DTEND;TZID=Asia/Tashkent:20260921T213900
 SUMMARY:Завтра НЕ принимать: Метилурацил
 DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
   Приём прекратить.
@@ -338,58 +447,10 @@ TRIGGER:-PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:breathe-sinupret-0900-13@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T090000
-DTEND;TZID=Asia/Tashkent:20260908T091000
-RRULE:FREQ=DAILY;COUNT=10
-SUMMARY:Синупрет экстракт — 1 таблетка
-DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
- о 2026-09-17 включительно.\nОстрое\, сладкое\, 
- солёное\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Синупрет экстракт — 1 таблетка
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-sinupret-1400-14@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T140000
-DTEND;TZID=Asia/Tashkent:20260908T141000
-RRULE:FREQ=DAILY;COUNT=10
-SUMMARY:Синупрет экстракт — 1 таблетка
-DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
- о 2026-09-17 включительно.\nОстрое\, сладкое\, 
- солёное\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Синупрет экстракт — 1 таблетка
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:breathe-sinupret-2100-15@breathe.local
-DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260908T210000
-DTEND;TZID=Asia/Tashkent:20260908T211000
-RRULE:FREQ=DAILY;COUNT=10
-SUMMARY:Синупрет экстракт — 1 таблетка
-DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
- о 2026-09-17 включительно.\nОстрое\, сладкое\, 
- солёное\, цитрусовое — нельзя.
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Синупрет экстракт — 1 таблетка
-TRIGGER:-PT0M
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:breathe-stop-sinupret@breathe.local
 DTSTAMP:20260908T000000Z
-DTSTART;TZID=Asia/Tashkent:20260917T214500
-DTEND;TZID=Asia/Tashkent:20260917T215000
+DTSTART;TZID=Asia/Tashkent:20260917T213500
+DTEND;TZID=Asia/Tashkent:20260917T214000
 SUMMARY:Завтра НЕ принимать: Синупрет экстра
  кт
 DESCRIPTION:Курс 10 дн. закончен сегодня (2026-09-17).

@@ -1,27 +1,29 @@
-// Генерирует breathe.ics из schedule.js: приёмы, стоп-напоминания, визит к врачу.
+// Генерирует breathe.ics из public/schedule.js.
+// Календарь — страховка на случай, если Telegram замьючен: те же блоки приёмов,
+// стоп-напоминания и, главное, визит к врачу.
 // Запуск: node tools/gen-ics.mjs
 import { writeFileSync } from 'node:fs';
-import { meds, START, DOCTOR_VISIT, DOCTOR_NAME, DIAGNOSIS, FOOD_BAN,
-         pad, endISO } from '../schedule.js';
+import {
+  meds, medList, blocks, blocksFor, segments, addDays, endISO, endingOn,
+  START, DOCTOR_VISIT, DOCTOR_NAME, DIAGNOSIS, FOOD_BAN, TZ, STOP_TIME, pad,
+} from '../public/schedule.js';
 
-const TZ = 'Asia/Tashkent';
 const STAMP = '20260908T000000Z';
 const nodash = (s) => s.replaceAll('-', '');
 const at = (dateISO, hhmm) => `${nodash(dateISO)}T${hhmm.replace(':', '')}00`;
 
-// Экранирование по RFC 5545 и сворачивание длинных строк в 75 октетов.
-const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;')
+const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;')
   .replace(/,/g, '\\,').replace(/\n/g, '\\n');
 
+/** Сворачивание длинных строк в 75 октетов по RFC 5545, не разрывая UTF-8. */
 function fold(line) {
   const bytes = Buffer.from(line, 'utf8');
   if (bytes.length <= 75) return line;
   const out = [];
   let start = 0;
   while (start < bytes.length) {
-    const limit = out.length ? 74 : 75;         // продолжения начинаются с пробела
-    let end = Math.min(start + limit, bytes.length);
-    while (end > start && end < bytes.length && (bytes[end] & 0xc0) === 0x80) end--; // не рвём UTF-8
+    let end = Math.min(start + (out.length ? 74 : 75), bytes.length);
+    while (end > start && end < bytes.length && (bytes[end] & 0xc0) === 0x80) end--;
     out.push((out.length ? ' ' : '') + bytes.subarray(start, end).toString('utf8'));
     start = end;
   }
@@ -31,30 +33,15 @@ function fold(line) {
 const lines = [];
 const push = (...ls) => lines.push(...ls);
 
-push(
-  'BEGIN:VCALENDAR',
-  'VERSION:2.0',
-  'PRODID:-//Breathe//Medication Schedule//RU',
-  'CALSCALE:GREGORIAN',
-  'METHOD:PUBLISH',
-  `X-WR-CALNAME:${esc('Лечение — риносинусит')}`,
-  `X-WR-TIMEZONE:${TZ}`,
-  'BEGIN:VTIMEZONE',
-  `TZID:${TZ}`,
-  'BEGIN:STANDARD',
-  'DTSTART:19700101T000000',
-  'TZOFFSETFROM:+0500',
-  'TZOFFSETTO:+0500',
-  'TZNAME:+05',
-  'END:STANDARD',
-  'END:VTIMEZONE',
-);
+push('BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Breathe//Medication Schedule//RU',
+  'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+  `X-WR-CALNAME:${esc('Лечение — риносинусит')}`, `X-WR-TIMEZONE:${TZ}`,
+  'BEGIN:VTIMEZONE', `TZID:${TZ}`, 'BEGIN:STANDARD', 'DTSTART:19700101T000000',
+  'TZOFFSETFROM:+0500', 'TZOFFSETTO:+0500', 'TZNAME:+05', 'END:STANDARD', 'END:VTIMEZONE');
 
-function event({ uid, start, minutes, summary, description, rrule, alarms = [0] }) {
-  // start в компактном виде YYYYMMDDTHHMMSS
-  const y = +start.slice(0, 4), mo = +start.slice(4, 6), d = +start.slice(6, 8);
-  const h = +start.slice(9, 11), mi = +start.slice(11, 13);
-  const end = new Date(y, mo - 1, d, h, mi + minutes);
+function event({ uid, start, minutes, summary, description, rrule, alarms = ['-PT0M'] }) {
+  const [y, mo, d] = [+start.slice(0, 4), +start.slice(4, 6), +start.slice(6, 8)];
+  const end = new Date(y, mo - 1, d, +start.slice(9, 11), +start.slice(11, 13) + minutes);
   const endStr = `${end.getFullYear()}${pad(end.getMonth() + 1)}${pad(end.getDate())}`
     + `T${pad(end.getHours())}${pad(end.getMinutes())}00`;
   push('BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${STAMP}`,
@@ -62,38 +49,33 @@ function event({ uid, start, minutes, summary, description, rrule, alarms = [0] 
   if (rrule) push(`RRULE:${rrule}`);
   push(`SUMMARY:${esc(summary)}`);
   if (description) push(`DESCRIPTION:${esc(description)}`);
-  for (const a of alarms) {
-    push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${esc(summary)}`,
-      `TRIGGER:${a === 0 ? '-PT0M' : a}`, 'END:VALARM');
-  }
+  for (const a of alarms)
+    push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${esc(summary)}`, `TRIGGER:${a}`, 'END:VALARM');
   push('END:VEVENT');
 }
 
-let n = 0;
-let stopSlot = 0;
-for (const med of meds) {
-  const label = `${med.name} — ${med.dose}`;
-  const desc = [
-    `${med.form}, ${med.dose}.`,
-    med.minPerDay ? `Назначено ${med.minPerDay}–${med.times.length} раза в день.` : null,
-    `Курс ${med.days} дн., по ${endISO(med)} включительно.`,
-    med.hint, med.warn ? `Внимание: ${med.warn}` : null, FOOD_BAN,
-  ].filter(Boolean).join('\n');
-
-  for (const t of med.times) {
+// Состав блока меняется, когда заканчивается очередной препарат, — поэтому
+// на каждый отрезок постоянного состава своя серия событий со своим текстом.
+for (const seg of segments()) {
+  for (const b of blocksFor(seg.startISO)) {
+    const steps = b.steps.map((s, i) =>
+      `${i + 1}. ${s.med.name}${s.when ? ` (${s.when})` : ''} — ${s.med.dose}`);
     event({
-      uid: `breathe-${med.id}-${t.replace(':', '')}-${++n}@breathe.local`,
-      start: at(START, t), minutes: 10, summary: label, description: desc,
-      rrule: `FREQ=DAILY;COUNT=${med.days}`,
+      uid: `breathe-${b.id}-${nodash(seg.startISO)}@breathe.local`,
+      start: at(seg.startISO, b.time), minutes: 15,
+      summary: `${b.icon} ${b.title}: ${b.steps.map((s) => s.med.short).join(' → ')}`,
+      description: [`Порядок обязателен:`, ...steps, '', FOOD_BAN].join('\n'),
+      rrule: `FREQ=DAILY;COUNT=${seg.days}`,
     });
   }
+}
 
-  // Явное стоп-напоминание вечером последнего дня.
-  // Разносим на минуту, чтобы совпавшие даты окончания не слиплись в одно уведомление.
-  const stopAt = `21:${pad(40 + stopSlot++)}`;
+// Стоп-напоминания: разнесены по минутам, чтобы совпавшие даты не слиплись.
+let k = 0;
+for (const med of medList) {
   event({
     uid: `breathe-stop-${med.id}@breathe.local`,
-    start: at(endISO(med), stopAt), minutes: 5,
+    start: at(endISO(med), `${STOP_TIME.slice(0, 3)}${pad(+STOP_TIME.slice(3) + k++)}`), minutes: 5,
     summary: `Завтра НЕ принимать: ${med.name}`,
     description: `Курс ${med.days} дн. закончен сегодня (${endISO(med)}). Приём прекратить.`
       + (med.warn ? `\n${med.warn}` : ''),
@@ -106,11 +88,10 @@ event({
   summary: `Контрольный приём — ${DOCTOR_NAME}`,
   description: `${DIAGNOSIS}\nНазначено 08.09.2026, явка через 14 дней.\n`
     + 'Взять с собой: список принятого, чем заменяли препараты, что осталось из жалоб.',
-  alarms: ['-P1D', 0],
+  alarms: ['-P1D', '-PT0M'],
 });
 
 push('END:VCALENDAR');
-
 const ics = lines.map(fold).join('\r\n') + '\r\n';
 writeFileSync(new URL('../breathe.ics', import.meta.url), ics);
-console.log(`breathe.ics: ${lines.length} строк, ${ics.length} байт`);
+console.log(`breathe.ics: ${lines.filter((l) => l === 'BEGIN:VEVENT').length} событий, ${ics.length} байт`);
