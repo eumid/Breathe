@@ -35,18 +35,21 @@ function fold(line) {
 const lines = [];
 const push = (...ls) => lines.push(...ls);
 
+// Ни METHOD, ни X-WR-CALNAME здесь быть не должно: с ними iOS считает файл
+// опубликованным календарём для подписки и не показывает кнопку «Добавить все».
+// Без них это обычный набор событий, который импортируется в существующий календарь.
 push('BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Breathe//Medication Schedule//RU',
-  'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
-  `X-WR-CALNAME:${esc('Лечение — риносинусит')}`, `X-WR-TIMEZONE:${TZ}`,
+  'CALSCALE:GREGORIAN',
   'BEGIN:VTIMEZONE', `TZID:${TZ}`, 'BEGIN:STANDARD', 'DTSTART:19700101T000000',
   'TZOFFSETFROM:+0500', 'TZOFFSETTO:+0500', 'TZNAME:+05', 'END:STANDARD', 'END:VTIMEZONE');
 
-function event({ uid, start, minutes, summary, description, rrule, alarms = ['-PT0M'] }) {
+function event({ uid, start, minutes, summary, description, rrule, alarms = ['-PT0S'] }) {
   const [y, mo, d] = [+start.slice(0, 4), +start.slice(4, 6), +start.slice(6, 8)];
   const end = new Date(y, mo - 1, d, +start.slice(9, 11), +start.slice(11, 13) + minutes);
   const endStr = `${end.getFullYear()}${pad(end.getMonth() + 1)}${pad(end.getDate())}`
     + `T${pad(end.getHours())}${pad(end.getMinutes())}00`;
-  push('BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${STAMP}`,
+  push('BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${STAMP}`, 'SEQUENCE:0', 'STATUS:CONFIRMED',
+    'TRANSP:TRANSPARENT', // напоминание, а не занятое время в расписании
     `DTSTART;TZID=${TZ}:${start}`, `DTEND;TZID=${TZ}:${endStr}`);
   if (rrule) push(`RRULE:${rrule}`);
   push(`SUMMARY:${esc(summary)}`);
@@ -90,10 +93,27 @@ event({
   summary: `Контрольный приём — ${DOCTOR_NAME}`,
   description: `${DIAGNOSIS}\nНазначено 08.09.2026, явка через 14 дней.\n`
     + 'Взять с собой: список принятого, чем заменяли препараты, что осталось из жалоб.',
-  alarms: ['-P1D', '-PT0M'],
+  alarms: ['-P1D', '-PT0S'],
 });
 
 push('END:VCALENDAR');
 const ics = lines.map(fold).join('\r\n') + '\r\n';
 writeFileSync(new URL('../public/breathe.ics', import.meta.url), ics);
 console.log(`breathe.ics: ${lines.filter((l) => l === 'BEGIN:VEVENT').length} событий, ${ics.length} байт`);
+
+// Запасной файл: только визит к врачу и отмена Риноксила — то, что нельзя пропустить.
+// Если основной импорт где-то упрётся, этот пройдёт: два события, без повторов.
+const KEY_UIDS = ['breathe-doctor-visit@breathe.local', 'breathe-stop-rinoxil@breathe.local'];
+const text = lines.join('\n');
+const vtimezone = text.slice(text.indexOf('BEGIN:VTIMEZONE'),
+  text.indexOf('END:VTIMEZONE') + 'END:VTIMEZONE'.length);
+const keyEvents = text.split('BEGIN:VEVENT').slice(1)
+  .map((b) => 'BEGIN:VEVENT' + b.slice(0, b.indexOf('END:VEVENT') + 'END:VEVENT'.length))
+  .filter((b) => KEY_UIDS.some((u) => b.includes(`UID:${u}`)));
+const keyIcs = [
+  'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Breathe//Key Dates//RU', 'CALSCALE:GREGORIAN',
+  vtimezone,               // события ссылаются на TZID — без этого блока файл невалиден
+  ...keyEvents, 'END:VCALENDAR',
+].join('\n').split('\n').map(fold).join('\r\n') + '\r\n';
+writeFileSync(new URL('../public/breathe-glavnoe.ics', import.meta.url), keyIcs);
+console.log(`breathe-glavnoe.ics: ${keyEvents.length} события, ${keyIcs.length} байт`);

@@ -1,0 +1,62 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Breathe//Key Dates//RU
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:Asia/Tashkent
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0500
+TZOFFSETTO:+0500
+TZNAME:+05
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:breathe-stop-rinoxil@breathe.local
+DTSTAMP:20260908T000000Z
+SEQUENCE:0
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+DTSTART;TZID=Asia/Tashkent:20260912T213000
+DTEND;TZID=Asia/Tashkent:20260912T213500
+SUMMARY:Завтра НЕ принимать: Риноксил 0\,05%
+DESCRIPTION:Курс 5 дн. закончен сегодня (2026-09-12). 
+ Приём прекратить.\nСосудосуживающий. Стр
+ ого не дольше 5 дней — дальше начинается 
+ медикаментозный ринит (нос перестаёт ды
+ шать без капель).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Риноксил 0\,05%
+TRIGGER:-PT0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-doctor-visit@breathe.local
+DTSTAMP:20260908T000000Z
+SEQUENCE:0
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+DTSTART;TZID=Asia/Tashkent:20260922T100000
+DTEND;TZID=Asia/Tashkent:20260922T110000
+SUMMARY:Контрольный приём — Ибрагимов Жасур
+  Нодирович
+DESCRIPTION:Острый риносинусит. Аллергический
+  ринит.\nНазначено 08.09.2026\, явка через 14 дн
+ ей.\nВзять с собой: список принятого\, чем 
+ заменяли препараты\, что осталось из жал
+ об.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Контрольный приём — Ибрагимов Жас
+ ур Нодирович
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Контрольный приём — Ибрагимов Жас
+ ур Нодирович
+TRIGGER:-PT0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR
