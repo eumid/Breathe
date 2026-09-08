@@ -59,6 +59,18 @@ const check = (ok, label, extra = '') => {
 const utcAt = (dateISO, hhmm) =>
   new Date(Date.parse(`${dateISO}T${hhmm}:00Z`) - TZ_OFFSET_MIN * 60000);
 
+/** Подменяет системные часы: воркер внутри зовёт new Date() без аргументов. */
+const RealDate = Date;
+async function withClock(when, fn) {
+  const ms = when.getTime();
+  class FakeDate extends RealDate {
+    constructor(...a) { super(...(a.length ? a : [ms])); }
+    static now() { return ms; }
+  }
+  globalThis.Date = FakeDate;
+  try { return await fn(); } finally { globalThis.Date = RealDate; }
+}
+
 // ——— тесты ———
 
 console.log('1. localNow переводит UTC в локальное время');
@@ -158,6 +170,37 @@ for (const m of medList) {
 console.log('11. Курс кончается вовремя');
 check(slotsFor(addDays(START, courseDays)).length === 0, 'после последнего дня приёмов нет');
 check(dayIndex(DOCTOR_VISIT) === 14, 'визит на 15-й день курса (через 14 дней)');
+
+console.log('12. Первый запуск посреди дня: бот предлагает отметить уже прошедшие блоки');
+{
+  const worker = await import('../worker/index.js');
+  const CHAT2 = 777;
+  const date = '2026-09-08';
+  const before = sentMessages.length;
+
+  const send = (text) => worker.default.fetch(new Request('https://x/tg/s', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'X-Telegram-Bot-Api-Secret-Token': 's' },
+    body: JSON.stringify({ message: { text, chat: { id: CHAT2 } } }),
+  }), env);
+
+  // /start вечером 8 сентября — курс уже идёт
+  await withClock(utcAt(date, '22:30'), () => send('/start'));
+
+  const fresh = sentMessages.slice(before);
+  const past = blocksFor(date).filter((b) => b.time <= '22:30');
+  check(fresh.some((m) => m.text.includes('Курс уже идёт')), 'пришло приглашение отметить задним числом');
+  for (const b of past)
+    check(fresh.some((m) => m.text.includes(`${b.title}, ${b.time}`)), `догоняющий блок ${b.id}`);
+  check(fresh.filter((m) => m.reply_markup).length === past.length,
+    'у каждого догоняющего блока свои кнопки', `${fresh.filter((m) => m.reply_markup).length}/${past.length}`);
+
+  // крон не должен присылать эти блоки повторно
+  const beforeCron = sentMessages.length;
+  for (const b of past) await tick(env, utcAt(date, b.time));
+  const dupes = sentMessages.slice(beforeCron).filter((m) => m.chat_id === CHAT2);
+  check(dupes.length === 0, 'крон не дублирует уже показанные блоки', `${dupes.length} лишних`);
+}
 
 console.log(failures ? `\n❌ Провалено проверок: ${failures}` : '\n✅ Все проверки пройдены');
 process.exit(failures ? 1 : 0);

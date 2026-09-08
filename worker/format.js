@@ -128,6 +128,16 @@ export function statusMessage(dateISO, takenByDate) {
   return lines.join('\n');
 }
 
+/** Заголовок к догоняющим блокам при первом запуске. */
+export function catchUpMessage(dateISO, n) {
+  return [
+    `⏪ <b>Курс уже идёт — отметь, что успел принять</b>`,
+    '',
+    `За ${fmtDate(dateISO)} ${n === 1 ? 'остался' : 'осталось'} ${n} ${plural(n, 'блок', 'блока', 'блоков')} без отметок.`,
+    'Ниже придут они же с кнопками. Что не принимал — просто не трогай.',
+  ].join('\n');
+}
+
 export function startMessage() {
   return [
     '🫁 <b>Breathe</b> — учёт лечения по назначению от 08.09.2026.',
@@ -139,6 +149,7 @@ export function startMessage() {
     '',
     '/status — сводка по курсу',
     '/today — план на день',
+    '/catchup — отметить задним числом за сегодня',
     '/pause — выключить напоминания, /resume — включить',
     '',
     `<i>${esc(FOOD_BAN)}</i>`,

@@ -12,7 +12,7 @@ crons = ["* * * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "breathe"
-database_id = "ЗАПОЛНИТЬ_ПОСЛЕ_wrangler_d1_create"
+database_id = "00000000-0000-0000-0000-000000000000"  # подставит помощник установки
 
 [vars]
 # URL Mini App — тот же воркер. Проставить после первого деплоя.

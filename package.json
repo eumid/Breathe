@@ -8,9 +8,10 @@
     "test": "node tools/test.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "db:init": "wrangler d1 execute breathe --remote --file=schema.sql"
+    "db:init": "wrangler d1 execute breathe --remote --file=schema.sql",
+    "setup": "node tools/setup.mjs"
   },
   "devDependencies": {
-    "wrangler": "^3.90.0"
+    "wrangler": "^4.0.0"
   }
 }

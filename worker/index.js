@@ -8,7 +8,7 @@ import {
 import { sendMessage, editMessage, answerCallback, tg, verifyInitData } from './telegram.js';
 import {
   blockMessage, blockKeyboard, recapMessage, stopMessage, visitMessage,
-  statusMessage, startMessage, todayMessage,
+  statusMessage, startMessage, todayMessage, catchUpMessage,
 } from './format.js';
 
 // Крон может пропустить минуту — считаем событие актуальным ещё TOLERANCE_MIN минут.
@@ -139,6 +139,11 @@ async function onUpdate(env, update) {
   if (cmd === '/start') {
     await upsertUser(env.DB, chat);
     await sendMessage(env.BOT_TOKEN, chat, startMessage(), miniAppButton(env));
+    await catchUp(env, chat, today, localNow(TZ_OFFSET_MIN).minutes);
+    return;
+  }
+  if (cmd === '/catchup') {
+    await catchUp(env, chat, today, 24 * 60, true);
     return;
   }
   if (cmd === '/status') {
@@ -160,7 +165,30 @@ async function onUpdate(env, update) {
     await sendMessage(env.BOT_TOKEN, chat, 'Напоминания включены.');
     return;
   }
-  await sendMessage(env.BOT_TOKEN, chat, 'Команды: /status, /today, /pause, /resume');
+  await sendMessage(env.BOT_TOKEN, chat, 'Команды: /status, /today, /catchup, /pause, /resume');
+}
+
+/**
+ * Блоки сегодняшнего дня, время которых уже прошло, — с теми же кнопками.
+ * Нужно при первом запуске: курс мог начаться раньше бота.
+ */
+async function catchUp(env, chat, date, nowMin, force = false) {
+  const past = blocksFor(date).filter((b) => toMin(b.time) <= nowMin);
+  if (!past.length) return;
+  const taken = await takenSet(env.DB, chat, date);
+  const pending = past.filter((b) => b.steps.some((s) => !taken.has(s.key)));
+  if (!pending.length) {
+    if (force) await sendMessage(env.BOT_TOKEN, chat, 'За сегодня всё уже отмечено.');
+    return;
+  }
+  await sendMessage(env.BOT_TOKEN, chat, catchUpMessage(date, pending.length));
+  for (const b of pending) {
+    // Помечаем как отправленное, чтобы крон не прислал этот блок повторно.
+    if (!force) await claim(env.DB, chat, date, `b:${b.id}`);
+    const res = await sendMessage(env.BOT_TOKEN, chat, blockMessage(date, b, taken),
+      { reply_markup: blockKeyboard(date, b, taken) });
+    if (res.ok && !force) await rememberMessage(env.DB, chat, date, `b:${b.id}`, res.result.message_id);
+  }
 }
 
 async function onCallback(env, q) {
