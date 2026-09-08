@@ -1,6 +1,8 @@
-// Генерирует breathe.ics из public/schedule.js.
+// Генерирует public/breathe.ics из public/schedule.js.
 // Календарь — страховка на случай, если Telegram замьючен: те же блоки приёмов,
 // стоп-напоминания и, главное, визит к врачу.
+// Лежит в public/, поэтому воркер отдаёт его по адресу /breathe.ics: открытая
+// в Safari ссылка передаётся Календарю напрямую, без возни с файловыми смотрелками.
 // Запуск: node tools/gen-ics.mjs
 import { writeFileSync } from 'node:fs';
 import {
@@ -93,5 +95,5 @@ event({
 
 push('END:VCALENDAR');
 const ics = lines.map(fold).join('\r\n') + '\r\n';
-writeFileSync(new URL('../breathe.ics', import.meta.url), ics);
+writeFileSync(new URL('../public/breathe.ics', import.meta.url), ics);
 console.log(`breathe.ics: ${lines.filter((l) => l === 'BEGIN:VEVENT').length} событий, ${ics.length} байт`);
