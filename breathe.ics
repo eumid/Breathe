@@ -1,0 +1,429 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Breathe//Medication Schedule//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Лечение — риносинусит
+X-WR-TIMEZONE:Asia/Tashkent
+BEGIN:VTIMEZONE
+TZID:Asia/Tashkent
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0500
+TZOFFSETTO:+0500
+TZNAME:+05
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:breathe-rinoxil-0800-1@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T080000
+DTEND;TZID=Asia/Tashkent:20260908T081000
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:Риноксил 0\,05% — по 2 дозы в каждую ноз
+ дрю
+DESCRIPTION:спрей\, по 2 дозы в каждую ноздрю.\nК
+ урс 5 дн.\, по 2026-09-12 включительно.\nПервый 
+ шаг цепочки. Через 5 минут — носовой душ.\
+ nВнимание: Сосудосуживающий. Строго не д
+ ольше 5 дней — дальше начинается медикам
+ ентозный ринит (нос перестаёт дышать без
+  капель).\nОстрое\, сладкое\, солёное\, цитр
+ усовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Риноксил 0\,05% — по 2 дозы в каждую н
+ оздрю
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-rinoxil-2000-2@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T200000
+DTEND;TZID=Asia/Tashkent:20260908T201000
+RRULE:FREQ=DAILY;COUNT=5
+SUMMARY:Риноксил 0\,05% — по 2 дозы в каждую ноз
+ дрю
+DESCRIPTION:спрей\, по 2 дозы в каждую ноздрю.\nК
+ урс 5 дн.\, по 2026-09-12 включительно.\nПервый 
+ шаг цепочки. Через 5 минут — носовой душ.\
+ nВнимание: Сосудосуживающий. Строго не д
+ ольше 5 дней — дальше начинается медикам
+ ентозный ринит (нос перестаёт дышать без
+  капель).\nОстрое\, сладкое\, солёное\, цитр
+ усовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Риноксил 0\,05% — по 2 дозы в каждую н
+ оздрю
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-rinoxil@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260912T214000
+DTEND;TZID=Asia/Tashkent:20260912T214500
+SUMMARY:Завтра НЕ принимать: Риноксил 0\,05%
+DESCRIPTION:Курс 5 дн. закончен сегодня (2026-09-12). 
+ Приём прекратить.\nСосудосуживающий. Стр
+ ого не дольше 5 дней — дальше начинается 
+ медикаментозный ринит (нос перестаёт ды
+ шать без капель).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Риноксил 0\,05%
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-rinse-0805-3@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T080500
+DTEND;TZID=Asia/Tashkent:20260908T081500
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Носовой душ — промывание носа
+DESCRIPTION:Аквалор софт или Аквамарис норм\, п
+ ромывание носа.\nНазначено 3–4 раза в ден
+ ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
+ ез 5 минут после Риноксила (пока он дейст
+ вует — промывается лучше). Назначено 3–4 
+ раза в день.\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Носовой душ — промывание носа
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-rinse-1300-4@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T130000
+DTEND;TZID=Asia/Tashkent:20260908T131000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Носовой душ — промывание носа
+DESCRIPTION:Аквалор софт или Аквамарис норм\, п
+ ромывание носа.\nНазначено 3–4 раза в ден
+ ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
+ ез 5 минут после Риноксила (пока он дейст
+ вует — промывается лучше). Назначено 3–4 
+ раза в день.\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Носовой душ — промывание носа
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-rinse-1700-5@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T170000
+DTEND;TZID=Asia/Tashkent:20260908T171000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Носовой душ — промывание носа
+DESCRIPTION:Аквалор софт или Аквамарис норм\, п
+ ромывание носа.\nНазначено 3–4 раза в ден
+ ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
+ ез 5 минут после Риноксила (пока он дейст
+ вует — промывается лучше). Назначено 3–4 
+ раза в день.\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Носовой душ — промывание носа
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-rinse-2005-6@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T200500
+DTEND;TZID=Asia/Tashkent:20260908T201500
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Носовой душ — промывание носа
+DESCRIPTION:Аквалор софт или Аквамарис норм\, п
+ ромывание носа.\nНазначено 3–4 раза в ден
+ ь.\nКурс 14 дн.\, по 2026-09-21 включительно.\nЧер
+ ез 5 минут после Риноксила (пока он дейст
+ вует — промывается лучше). Назначено 3–4 
+ раза в день.\nОстрое\, сладкое\, солёное\, ц
+ итрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Носовой душ — промывание носа
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-rinse@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260921T214100
+DTEND;TZID=Asia/Tashkent:20260921T214600
+SUMMARY:Завтра НЕ принимать: Носовой душ
+DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
+  Приём прекратить.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Носовой душ
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-steroid-0810-7@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T081000
+DTEND;TZID=Asia/Tashkent:20260908T082000
+RRULE:FREQ=DAILY;COUNT=28
+SUMMARY:Авамис / Флутинекс / Флутел / Фронза —
+  по 2 дозы
+DESCRIPTION:спрей\, по 2 дозы.\nКурс 28 дн.\, по 2026-10
+ -05 включительно.\nСразу после носового ду
+ ша. Любой один препарат из четырёх — они 
+ взаимозаменяемы.\nВнимание: Работает нак
+ опительно: заметный эффект к 5–7 дню\, но 
+ курс 28 дней. Бросить\, когда «стало легче
+ »\, — вернуть всё назад.\nОстрое\, сладкое\
+ , солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Авамис / Флутинекс / Флутел / Фронза
+  — по 2 дозы
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-steroid-2010-8@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T201000
+DTEND;TZID=Asia/Tashkent:20260908T202000
+RRULE:FREQ=DAILY;COUNT=28
+SUMMARY:Авамис / Флутинекс / Флутел / Фронза —
+  по 2 дозы
+DESCRIPTION:спрей\, по 2 дозы.\nКурс 28 дн.\, по 2026-10
+ -05 включительно.\nСразу после носового ду
+ ша. Любой один препарат из четырёх — они 
+ взаимозаменяемы.\nВнимание: Работает нак
+ опительно: заметный эффект к 5–7 дню\, но 
+ курс 28 дней. Бросить\, когда «стало легче
+ »\, — вернуть всё назад.\nОстрое\, сладкое\
+ , солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Авамис / Флутинекс / Флутел / Фронза
+  — по 2 дозы
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-steroid@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20261005T214200
+DTEND;TZID=Asia/Tashkent:20261005T214700
+SUMMARY:Завтра НЕ принимать: Авамис / Флутине
+ кс / Флутел / Фронза
+DESCRIPTION:Курс 28 дн. закончен сегодня (2026-10-05).
+  Приём прекратить.\nРаботает накопительн
+ о: заметный эффект к 5–7 дню\, но курс 28 дн
+ ей. Бросить\, когда «стало легче»\, — верн
+ уть всё назад.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Авамис / Флути
+ некс / Флутел / Фронза
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-montelukast-2230-9@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T223000
+DTEND;TZID=Asia/Tashkent:20260908T224000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Л-Монтус / Аллервей М — 1 таблетка
+DESCRIPTION:таблетка\, 1 таблетка.\nКурс 14 дн.\, п
+ о 2026-09-21 включительно.\nПеред сном.\nОстро
+ е\, сладкое\, солёное\, цитрусовое — нельз
+ я.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Л-Монтус / Аллервей М — 1 таблетка
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-montelukast@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260921T214300
+DTEND;TZID=Asia/Tashkent:20260921T214800
+SUMMARY:Завтра НЕ принимать: Л-Монтус / Аллер
+ вей М
+DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
+  Приём прекратить.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Л-Монтус / Алл
+ ервей М
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-methyluracil-0930-10@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T093000
+DTEND;TZID=Asia/Tashkent:20260908T094000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Метилурацил — на каждую ноздрю
+DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
+  по 2026-09-21 включительно.\nЗаживляет слизи
+ стую. Ставить между приёмами спрея\, не с
+ разу после него.\nОстрое\, сладкое\, солён
+ ое\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Метилурацил — на каждую ноздрю
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-methyluracil-1500-11@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T150000
+DTEND;TZID=Asia/Tashkent:20260908T151000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Метилурацил — на каждую ноздрю
+DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
+  по 2026-09-21 включительно.\nЗаживляет слизи
+ стую. Ставить между приёмами спрея\, не с
+ разу после него.\nОстрое\, сладкое\, солён
+ ое\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Метилурацил — на каждую ноздрю
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-methyluracil-2200-12@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T220000
+DTEND;TZID=Asia/Tashkent:20260908T221000
+RRULE:FREQ=DAILY;COUNT=14
+SUMMARY:Метилурацил — на каждую ноздрю
+DESCRIPTION:мазь\, на каждую ноздрю.\nКурс 14 дн.\,
+  по 2026-09-21 включительно.\nЗаживляет слизи
+ стую. Ставить между приёмами спрея\, не с
+ разу после него.\nОстрое\, сладкое\, солён
+ ое\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Метилурацил — на каждую ноздрю
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-methyluracil@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260921T214400
+DTEND;TZID=Asia/Tashkent:20260921T214900
+SUMMARY:Завтра НЕ принимать: Метилурацил
+DESCRIPTION:Курс 14 дн. закончен сегодня (2026-09-21).
+  Приём прекратить.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Метилурацил
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-sinupret-0900-13@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T090000
+DTEND;TZID=Asia/Tashkent:20260908T091000
+RRULE:FREQ=DAILY;COUNT=10
+SUMMARY:Синупрет экстракт — 1 таблетка
+DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
+ о 2026-09-17 включительно.\nОстрое\, сладкое\, 
+ солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Синупрет экстракт — 1 таблетка
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-sinupret-1400-14@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T140000
+DTEND;TZID=Asia/Tashkent:20260908T141000
+RRULE:FREQ=DAILY;COUNT=10
+SUMMARY:Синупрет экстракт — 1 таблетка
+DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
+ о 2026-09-17 включительно.\nОстрое\, сладкое\, 
+ солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Синупрет экстракт — 1 таблетка
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-sinupret-2100-15@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260908T210000
+DTEND;TZID=Asia/Tashkent:20260908T211000
+RRULE:FREQ=DAILY;COUNT=10
+SUMMARY:Синупрет экстракт — 1 таблетка
+DESCRIPTION:таблетки\, 1 таблетка.\nКурс 10 дн.\, п
+ о 2026-09-17 включительно.\nОстрое\, сладкое\, 
+ солёное\, цитрусовое — нельзя.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Синупрет экстракт — 1 таблетка
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-stop-sinupret@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260917T214500
+DTEND;TZID=Asia/Tashkent:20260917T215000
+SUMMARY:Завтра НЕ принимать: Синупрет экстра
+ кт
+DESCRIPTION:Курс 10 дн. закончен сегодня (2026-09-17).
+  Приём прекратить.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Завтра НЕ принимать: Синупрет экст
+ ракт
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breathe-doctor-visit@breathe.local
+DTSTAMP:20260908T000000Z
+DTSTART;TZID=Asia/Tashkent:20260922T100000
+DTEND;TZID=Asia/Tashkent:20260922T110000
+SUMMARY:Контрольный приём — Ибрагимов Жасур
+  Нодирович
+DESCRIPTION:Острый риносинусит. Аллергический
+  ринит.\nНазначено 08.09.2026\, явка через 14 дн
+ ей.\nВзять с собой: список принятого\, чем 
+ заменяли препараты\, что осталось из жал
+ об.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Контрольный приём — Ибрагимов Жас
+ ур Нодирович
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Контрольный приём — Ибрагимов Жас
+ ур Нодирович
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,14 @@
+{
+  "name": "Breathe — приём лекарств",
+  "short_name": "Breathe",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f6",
+  "theme_color": "#0f766e",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
